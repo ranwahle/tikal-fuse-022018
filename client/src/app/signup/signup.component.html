@@ -1,3 +1,6 @@
 <label>User name <input type="text" [(ngModel)]="username" placeholder="Your user name"> </label>
 <label>Password <input type="password" [(ngModel)]="password"></label>
 <button type="button" (click)="signUp()">Sign up</button>
+<div *ngIf="error">
+  {{error}}
+</div>
