@@ -1,8 +1,8 @@
 import {Answer} from './answer.interface';
 
 export interface Question {
-  id: number;
-  type: 'textual' | 'image';
+  Id: number;
+  type: 'textual' | 'image' | string;
   text: string;
   answers: Answer[];
 }

@@ -1,0 +1,27 @@
+ul {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
+
+  li {
+
+    list-style-image: none;
+    list-style-type: none;
+    .selected {
+      color: yellow;
+      background-color: green;
+    }
+    label {
+      color: white;
+      background-color: #0000fe;
+      border-radius: 5px;
+      padding: 10px;
+
+      cursor: pointer;
+      .selected {
+        color: yellow;
+        background-color: green;
+      }
+    }
+  }
+}
