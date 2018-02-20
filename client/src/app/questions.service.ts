@@ -7,21 +7,21 @@ import {AngularFirestore} from 'angularfire2/firestore';
 export class QuestionsService {
 
   constructor(private db: AngularFirestore) {
- //  this.addQuestion();
+ // this.addQuestion();
   }
 
   addQuestion() {
     this.db.collection('quiz').add({
       Id: 1,
-      text: 'Who will win the Fuse?',
+      text: 'When will the Fuze end?',
       answers: [{
-        text: 'Whoever Assaf decides',
+        text: 'Whenever Assaf decides',
         isCorrect: true
       }, {
         text: 'The ones with the best presentation',
         isCorrect: false
       }, {
-        text: `You won't`,
+        text: `It won't`,
         isCorrect: false
       }, {
         text: 'Ask Shavit'
