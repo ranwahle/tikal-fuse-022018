@@ -1,7 +1,8 @@
 'use strict';
 const rp = require('request-promise');
 const AWS = require('aws-sdk');
-const _ = require('loadash');
+const _ = require('lodash');
+
 const s3 = new AWS.S3();
 
 const getQuiz = () => {
@@ -19,20 +20,20 @@ const getQuiz = () => {
 };
 
 const getQuestion = (quiz, questionId) =>
-  Promise.resolve(quiz.questions.find(question => question.id === questionId));
+  Promise.resolve(quiz.questions.find(question => question.Id === questionId));
 
 const sendToFirebase = question => {
+
   const options = {
     uri: 'https://morgan-quiz.firebaseio.com/quiz.json',
     method: 'POST',
-    body: {
-      question,
-    },
+    body: 'treter',
     json: true // Automatically parses the JSON string in the response
   };
 
   return rp(options)
-    .then(res => question);
+    .then(res => question)
+    .catch(console.log);
 };
 
 module.exports.endpoint = (event, context, callback) => {
@@ -46,5 +47,12 @@ module.exports.endpoint = (event, context, callback) => {
         body: { question },
       };
       callback(null, response);
+    })
+    .catch(ex => {
+      const res = {
+        status: 500,
+        body: ex,
+      };
+      callback(ex);
     });
 };
