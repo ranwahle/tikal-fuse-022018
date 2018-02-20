@@ -11,43 +11,40 @@ const getQuiz = () => {
     const params = { Bucket, Key };
     s3.getObject(params, (err, data) => {
       if (!err)
-        resolve(data.Body.toString());
+        resolve(JSON.parse(data.Body.toString()));
       else
         reject(err);
     });
   });
 };
 
-module.exports.endpoint = (event, context, callback) => {
+const getQuestion = (quiz, questionId) =>
+  Promise.resolve(quiz.questions.find(question => question.id === questionId));
 
-  const questionId = event.pathParameters.qid;
-  getQuiz()
-    .then(quiz => {
-      const response = {
-        statusCode: 200,
-        body: _.assignIn({}, quiz, { questionId }),
-      };
-      callback(null, response);
-    });
-
-  /*const options = {
-    uri: 'https://morgan-quiz.firebaseio.com/state.json',
+const sendToFirebase = question => {
+  const options = {
+    uri: 'https://morgan-quiz.firebaseio.com/quiz.json',
     method: 'POST',
     body: {
-      some: 'payload',
+      question,
     },
     json: true // Automatically parses the JSON string in the response
   };
 
-  rp(options)
-    .then(res => {
+  return rp(options)
+    .then(res => question);
+};
+
+module.exports.endpoint = (event, context, callback) => {
+  const questionId = event.pathParameters.qid;
+  getQuiz()
+    .then(quiz => getQuestion(quiz, questionId))
+    .then(question => sendToFirebase(question))
+    .then(question => {
       const response = {
         statusCode: 200,
-        body: JSON.stringify({
-          message: `Hello, the current time is ${new Date().toTimeString()}.`,
-        }),
+        body: { question },
       };
-
       callback(null, response);
-    });*/
+    });
 };
