@@ -35,7 +35,7 @@ const sendToFirebase = question => {
     .then(res => question);
 };
 
-module.exports.endpoint = (event, context, callback) => {
+module.exports.handler = (event, context, callback) => {
   const questionId = event.pathParameters.qid;
   getQuiz()
     .then(quiz => getQuestion(quiz, questionId))

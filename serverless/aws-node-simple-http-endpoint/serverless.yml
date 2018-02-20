@@ -2,9 +2,11 @@ service: sl-http
 
 frameworkVersion: ">=1.1.0 <2.0.0"
 
+
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.10
+  role: arn:aws:iam::031998557027:role/admin_lambda
 
 functions:
   post-question:
@@ -12,6 +14,6 @@ functions:
     events:
       - http:
           path: q/{qid}
-          method: post
+          method: get
 
 
