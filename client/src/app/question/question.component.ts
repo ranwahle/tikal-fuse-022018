@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Question} from '../model/question.interface';
 import {questionJson} from '../mocks/questions-mock';
 import {Answer} from '../model/answer.interface';
+import {QuestionsService} from '../questions.service';
+import 'rxjs/operator/take';
 
 @Component({
   selector: 'app-question',
@@ -11,11 +13,10 @@ import {Answer} from '../model/answer.interface';
 export class QuestionComponent implements OnInit {
 
   question: Question;
-  constructor() { }
+  constructor(private questionsService: QuestionsService) { }
 
   ngOnInit() {
-
-    this.question = questionJson.questions[0];
+  this.questionsService.getCurrentQuestion().subscribe(question => this.question = question);
   }
 
   setSelected(answer: Answer) {
