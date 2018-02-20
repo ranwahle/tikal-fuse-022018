@@ -12,5 +12,6 @@ export const routes: Route[] = [
   },
   {
     path: 'login', component: LoginComponent
-  }
+  },
+  { path: '', redirectTo: 'quiz', pathMatch: 'full'}
 ];

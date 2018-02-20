@@ -13,12 +13,12 @@ export class QuestionsService {
   addQuestion() {
     this.db.collection('quiz').add({
       Id: 1,
-      text: 'How can I save questions in firebase?',
+      text: 'Who will win the Fuse?',
       answers: [{
-        text: 'Like that',
+        text: 'Whoever Assaf decides',
         isCorrect: true
       }, {
-        text: 'Google it',
+        text: 'The ones with the best presentation',
         isCorrect: false
       }, {
         text: `You won't`,
