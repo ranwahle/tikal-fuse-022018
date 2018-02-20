@@ -3,7 +3,7 @@ service: upload-to-s3-and-postprocess
 frameworkVersion: ">=1.1.0"
 
 custom:
-  bucket: <your-bucket-name>
+  bucket: morganf
 
 provider:
   name: aws
