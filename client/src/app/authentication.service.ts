@@ -24,7 +24,7 @@ export class AuthenticationService {
             reject(err);
           } else {
             const foundAttribute: any = result.find(item => (item as any).Name === 'email');
-            resolve({fullName: foundAttribute ? foundAttribute.Value : 'No mail'});
+            resolve({fullName: foundAttribute ? foundAttribute.Value.substring(0, foundAttribute.Value.indexOf('@')) : 'No mail'});
           }
         });
 

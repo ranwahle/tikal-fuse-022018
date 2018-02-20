@@ -48,6 +48,9 @@ export class QuestionComponent implements OnInit, OnDestroy {
   answer() {
     const index = (this.questions.indexOf(this.question) + 1) % this.questions.length;
     this.question = this.questions[index];
+    if (this.question.answers) {
+      this.question.answers.forEach(ans => ans.isSelected = false);
+    }
   }
 
 }
