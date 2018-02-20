@@ -14,9 +14,20 @@ import {RouterModule} from '@angular/router';
 import {routes} from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import {AngularFireModule} from 'angularfire2';
+import {config} from './config/firebase.config';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpClientModule,
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule
+  ],
   declarations: [
     AppComponent,
     QuestionComponent,
@@ -24,13 +35,6 @@ import { SignupComponent } from './signup/signup.component';
     QuizPageComponent,
     LoginComponent,
     SignupComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes),
-
   ],
   providers: [QuestionsService, AuthenticationService],
   bootstrap: [AppComponent]
