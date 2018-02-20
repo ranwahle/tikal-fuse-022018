@@ -16,17 +16,15 @@ export class AuthenticationService {
 
   async mapToUser(user: CognitoUser): Promise<User> {
     return new Promise<User>((resolve, reject) => {
-        user.getSession((err, result) =>{})
+        user.getSession((err, result) => {
+        })
         user.getUserAttributes((err, result) => {
           if (err) {
             console.error(err, result);
             reject(err);
           } else {
-      //      console.log('attributed', result);
-            const foundAttribute: any = result.find(item => (item as any ).Name === 'email');
-            resolve({fullName: foundAttribute? foundAttribute.Value: 'No mail'});
-            //resolve({ fullName: result.find(item => (<any>item).Name === 'email').Value
-           // resolve({fullName: 'name'});
+            const foundAttribute: any = result.find(item => (item as any).Name === 'email');
+            resolve({fullName: foundAttribute ? foundAttribute.Value : 'No mail'});
           }
         });
 

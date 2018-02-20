@@ -17,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
 import {AngularFireModule} from 'angularfire2';
 import {config} from './config/firebase.config';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     HttpClientModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(config),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireDatabaseModule
   ],
   declarations: [
     AppComponent,
