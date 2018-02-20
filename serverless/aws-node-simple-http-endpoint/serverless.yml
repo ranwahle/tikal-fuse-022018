@@ -7,9 +7,11 @@ provider:
   runtime: nodejs4.3
 
 functions:
-  currentTime:
+  post-question:
     handler: handler.endpoint
     events:
       - http:
-          path: ping
-          method: get
+          path: q/{qid}
+          method: post
+
+
