@@ -24,4 +24,12 @@ export class QuestionComponent implements OnInit {
     answer.isSelected = true;
   }
 
+  get disabled() : boolean {
+    return !this.question.answers.find(a => a.isSelected)
+  }
+
+  get buttnText() : string {
+    return this.disabled ? 'Pick an answer' : `That's my answer`;
+  }
+
 }

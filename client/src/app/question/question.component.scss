@@ -1,7 +1,16 @@
+:host {
+  display: flex;
+  flex-flow: row;
+  flex-direction: column;
+}
+
+$background: #0000fe;
+$selected-color: yellow;
+$font: fantasy;
 ul {
   display: flex;
   justify-content: space-between;
-  width: 50%;
+//  width: 50%;
 
   li {
 
@@ -9,13 +18,16 @@ ul {
     list-style-type: none;
     .selected {
       color: yellow;
-      background-color: green;
+      border-color: $selected-color;
     }
     label {
       color: white;
-      background-color: #0000fe;
+      background-color: $background;
+      border-color: $background;
+      border-style: solid;
       border-radius: 5px;
       padding: 10px;
+      font-family: $font;
 
       cursor: pointer;
       .selected {
@@ -23,5 +35,22 @@ ul {
         background-color: green;
       }
     }
+  }
+}
+
+.answer-button{
+  font-family: $font;
+  background-color: $background;
+  color: white;
+  align-self: center;
+  display: flex;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  justify-self: flex-end;
+  padding: 10px;
+  margin-top: 10px;
+  &[disabled] {
+    background-color: gray;
   }
 }

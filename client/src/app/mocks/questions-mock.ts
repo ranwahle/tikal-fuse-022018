@@ -12,6 +12,14 @@ export const questionJson = {
         {
           text: `this is answer number 2`,
           isCorrect: false
+        },
+        {
+          text: `this is the answer`,
+          isCorrect: false
+        },
+        {
+          text: `this is the answer`,
+          isCorrect: false
         }
         ]
     }
