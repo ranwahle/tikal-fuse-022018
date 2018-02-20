@@ -18,7 +18,7 @@ export class QuestionComponent implements OnInit {
   ngOnInit() {
   this.questionsService.getCurrentQuestion().subscribe( question => {
     console.log('question', question)
-    this.question = question
+    this.question = question;
   });
   }
 
