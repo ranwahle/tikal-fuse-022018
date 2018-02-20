@@ -7,19 +7,22 @@ import {HttpClientModule} from '@angular/common/http';
 import { QuestionComponent } from './question/question.component';
 import {FormsModule} from '@angular/forms';
 import {QuestionsService} from './questions.service';
+import {AuthenticationService} from './authentication.service';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionComponent
+    QuestionComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [QuestionsService],
+  providers: [QuestionsService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
