@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../authentication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -8,16 +9,25 @@ import {AuthenticationService} from '../authentication.service';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
   username: string;
   password: string;
+  error: any;
   ngOnInit() {
   }
 
   async signUp() {
-  const result = await  this.authService.signupUser(this.username, this.password);
-  console.log('signup result', result);
+    try {
+      const result = await  this.authService.signupUser(this.username, this.password);
+      console.log('signup result', result);
+      this.router.navigate(['/quiz']);
+
+    }catch(err) {
+      console.log('error', err);
+      this.error = err.message;
+    }
+
   }
 
 }

@@ -15,6 +15,7 @@ export class AuthenticationService {
   }
 
   mapToUser(user: CognitoUser): User {
+    console.log('user', user);
     return user ? {
       fullName: user.getUsername()
     } : null;
@@ -22,8 +23,18 @@ export class AuthenticationService {
 
   async signupUser(username: string, password: string) {
     const pull = this.getUserPool();
-    return await pull.signUp(username, password, [], null,
-      (err, result)  => console.log(`i'm doing nothing`, err, result ));
+
+    return new Promise((resolve, reject) => {
+      pull.signUp(username, password, [], null,
+        (err, result)  => {
+         if (err) {
+           reject(err);
+         } else {
+           resolve(result);
+         }
+        })
+    });
+
   }
 
   private getUserPool() {
