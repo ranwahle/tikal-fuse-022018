@@ -16,7 +16,10 @@ export class QuestionComponent implements OnInit {
   constructor(private questionsService: QuestionsService) { }
 
   ngOnInit() {
-  this.questionsService.getCurrentQuestion().subscribe(question => this.question = question);
+  this.questionsService.getCurrentQuestion().subscribe( question => {
+    console.log('question', question)
+    this.question = question
+  });
   }
 
   setSelected(answer: Answer) {
@@ -25,7 +28,7 @@ export class QuestionComponent implements OnInit {
   }
 
   get disabled() : boolean {
-    return !this.question.answers.find(a => a.isSelected)
+    return !this.question || !this.question.answers || !this.question.answers.find(a => a.isSelected)
   }
 
   get buttnText() : string {

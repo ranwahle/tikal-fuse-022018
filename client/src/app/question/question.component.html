@@ -1,7 +1,7 @@
-<div>
+<div *ngIf="question    ">
   <h2>{{question.text}}</h2>
 </div>
-<ul>
+<ul *ngIf="question">
   <li *ngFor="let answer of question.answers" (click)="setSelected(answer)" [ngClass]="{'selected': answer.isSelected}" >
    <label [ngClass]="{'selected': answer.isSelected}"> {{answer.text}}
 

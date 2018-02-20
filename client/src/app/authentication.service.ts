@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {CognitoUser, CognitoUserPool} from "amazon-cognito-identity-js";
+import {AuthenticationDetails, CognitoUser, CognitoUserPool} from 'amazon-cognito-identity-js';
 import {config} from './config/auth.config';
 import {User} from './model/user.inerface';
 
@@ -9,16 +9,50 @@ export class AuthenticationService {
   constructor() {
   }
 
-  getCurrentUser(): User {
+  getCurrentUser(): Promise<User> {
     const userPool = this.getUserPool();
     return this.mapToUser(userPool.getCurrentUser());
   }
 
-  mapToUser(user: CognitoUser): User {
+  async mapToUser(user: CognitoUser): Promise<User> {
     console.log('user', user);
-    return user ? {
-      fullName: user.getUsername()
-    } : null;
+    return new Promise<User>((resolve, reject) => {
+        user.getSession((err, result) => console.log('sessin', err, result))
+        user.getUserAttributes((err, result) => {
+          if (err) {
+            console.error(err, result);
+            reject(err);
+          } else {
+            console.log('attributed', result);
+            const foundAttribute: any = result.find(item => (item as any ).Name === 'email');
+            resolve({fullName: foundAttribute? foundAttribute.Value: 'No mail'});
+            //resolve({ fullName: result.find(item => (<any>item).Name === 'email').Value
+           // resolve({fullName: 'name'});
+          }
+        });
+
+
+      }
+    );
+
+  }
+
+  async login(username: string, password: string) {
+
+    const user = new CognitoUser({Username: username, Pool: this.getUserPool()});
+    const authenticationData = {Username: username, Password: password};
+    const authenticationDetails = new AuthenticationDetails(authenticationData);
+
+    return new Promise((resolve, reject) =>
+      user.authenticateUser(authenticationDetails, {
+        onSuccess: result => {
+          console.log('result', result);
+          sessionStorage.setItem('cognito-access-token', result.getAccessToken().getJwtToken());
+          resolve(result);
+        },
+        onFailure: err => reject(err)
+      })
+    );
   }
 
   async signupUser(username: string, password: string) {
@@ -26,12 +60,12 @@ export class AuthenticationService {
 
     return new Promise((resolve, reject) => {
       pull.signUp(username, password, [], null,
-        (err, result)  => {
-         if (err) {
-           reject(err);
-         } else {
-           resolve(result);
-         }
+        (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
         })
     });
 
