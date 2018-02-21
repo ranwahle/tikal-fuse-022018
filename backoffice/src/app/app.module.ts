@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
+import {AnswersService} from './answers.service';
+import {AngularFireModule} from 'angularfire2';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {config} from '../config/firebase.config';
+import {MatTableModule} from '@angular/material/table';
 
 
 @NgModule({
@@ -10,9 +15,12 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AngularFireModule.initializeApp(config),
+    AngularFirestoreModule,
+    MatTableModule
   ],
-  providers: [],
+  providers: [AnswersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

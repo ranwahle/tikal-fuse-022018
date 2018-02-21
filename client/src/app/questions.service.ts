@@ -2,12 +2,15 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import {AngularFirestore} from 'angularfire2/firestore';
+import {Question} from './model/question.interface';
+import {AuthenticationService} from './authentication.service';
+import {Answer} from './model/answer.interface';
 
 @Injectable()
 export class QuestionsService {
 
-  constructor(private db: AngularFirestore) {
- // this.addQuestion();
+  constructor(private db: AngularFirestore, private authService: AuthenticationService) {
+    // this.addQuestion();
   }
 
   addQuestion() {
@@ -26,6 +29,13 @@ export class QuestionsService {
       }, {
         text: 'Ask Shavit'
       }]
+    });
+  }
+
+  async answer(question: Question, answer: Answer) {
+    const user = await this.authService.getCurrentUser()
+    this.db.collection('answers').add({
+      question: question, user: user, answer: answer
     });
   }
 
