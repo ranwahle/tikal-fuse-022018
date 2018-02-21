@@ -26,7 +26,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const observable = this.answersService.getAnswers();
     this.subscription = observable.subscribe(answers => {
       console.log('answers', answers);
-      this.answers = <AnswerByUser[]>answers;
+      this.answers = <AnswerByUser[]>answers.reverse();
     })
   }
 }
